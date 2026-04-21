@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Result</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+        }
+
+        .card {
+            background: white;
+            color: black;
+            padding: 30px;
+            margin: 100px auto;
+            width: 350px;
+            border-radius: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            margin-top: 15px;
+            background: #6a11cb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+    <h2>🎓 Student Stress Result</h2>
+
+    <p><b>User:</b> {{ user }}</p>
+    <p><b>Score:</b> {{ score }}</p>
+    <p><b>Healthy Percentage:</b> {{ pct }}%</p>
+
+    <h3 style="color:red;">Stress Level: {{ stress }}</h3>
+
+    <!-- 🔥 TALK TO AI BUTTON -->
+    <button class="btn" onclick="openChat()">💬 Talk to AI</button>
+
+    <br><br>
+    <a href="/logout">Logout</a>
+</div>
+
+<!-- ✅ MindEase Chat Widget -->
+<script src="mindease.js"></script>
+
+<script>
+    // Convert Flask stress to chatbot format
+    let stressLevel = "{{ stress }}";
+
+    if (stressLevel.includes("Low")) {
+        MindEase.setStress("low");
+    } else if (stressLevel.includes("Moderate")) {
+        MindEase.setStress("moderate");
+    } else {
+        MindEase.setStress("high");
+    }
+
+    function openChat() {
+        MindEase.open(); // opens chatbot
+    }
+</script>
+<script src="https://www.noupe.com/embed/019d66e447117d16ab3337e3bd64d786e283.js"></script>
+</body>
+</html>

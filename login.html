@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Student Mental Healthcare - Login</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg,#667eea,#764ba2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Floating Icons */
+.float {
+    position: absolute;
+    font-size: 40px;
+    animation: float 6s infinite ease-in-out;
+}
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-30px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Animated Login Box */
+.login-box {
+    background: rgba(255,255,255,0.95);
+    padding: 35px;
+    width: 380px;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    animation: slideUp 1s ease;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(60px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+h2 {
+    text-align:center;
+    color:#5a2fdc;
+    margin-bottom: 20px;
+}
+
+.error { 
+    color:red; 
+    text-align:center; 
+}
+
+/* Input Animation */
+.input-group {
+    position: relative;
+    margin-top: 20px;
+}
+
+input {
+    width:100%;
+    padding:12px;
+    border-radius:10px;
+    border:1px solid #ccc;
+    outline:none;
+    transition: 0.3s;
+}
+
+input:focus {
+    border-color:#764ba2;
+    box-shadow:0 0 8px rgba(118,75,162,0.4);
+}
+
+/* Captcha */
+.captcha-text {
+    font-size:22px;
+    letter-spacing:4px;
+    background:#f2f2f2;
+    padding:10px;
+    border-radius:8px;
+    text-align:center;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+/* Animated Button */
+button {
+    width:100%;
+    padding:14px;
+    background:linear-gradient(to right,#667eea,#764ba2);
+    border:none;
+    color:white;
+    border-radius:12px;
+    margin-top:20px;
+    cursor:pointer;
+    font-size:16px;
+    position: relative;
+    overflow: hidden;
+    transition: 0.4s;
+}
+
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+/* Logout-style animation */
+button::after {
+    content: "🚪";
+    position: absolute;
+    right: -40px;
+    transition: 0.5s;
+}
+
+button:hover::after {
+    right: 15px;
+}
+
+/* Checkbox style */
+.show-pass {
+    margin-top:10px;
+    font-size:14px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="float" style="top:10%;left:10%">🧠</div>
+<div class="float" style="top:80%;left:15%">❤️</div>
+<div class="float" style="top:20%;right:10%">🎓</div>
+<div class="float" style="top:60%;right:20%">✨</div>
+
+<div class="login-box">
+<h2>Student Mental Healthcare</h2>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<p class="error">{{ messages[0] }}</p>
+{% endif %}
+{% endwith %}
+
+<form method="POST" action="{{ url_for('login') }}">
+
+<div class="input-group">
+<input type="email" name="email" placeholder="Enter SRM Email" required>
+</div>
+
+<div class="input-group">
+<input type="password" name="password" id="password" placeholder="Enter Password" required>
+</div>
+
+<div class="show-pass">
+<input type="checkbox" onclick="togglePassword()"> Show Password
+</div>
+
+<div class="captcha-text">{{ captcha }}</div>
+
+<div class="input-group">
+<input type="text" name="captcha" placeholder="Enter Captcha" required>
+</div>
+
+<button type="submit">Sign In</button>
+
+</form>
+</div>
+
+<script>
+function togglePassword(){
+    var p = document.getElementById("password");
+    p.type = p.type === "password" ? "text" : "password";
+}
+</script>
+
+</body>
+</html>
